@@ -7,31 +7,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Run script
-      run: |
-        python -c "
-        from datetime import datetime
-        with open('results.txt', 'a+') as file_name:
-            output_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-            file_name.write(f'{output_date}\\\\\\\\n')
-        "
+      - name: Run Python script
+        run: |
+          import datetime
+          now = datetime.datetime.now()
+          with open('results.txt', 'w') as f:
+              f.write(f"Current date and time: {now}\n")
+        shell: python
 
-    - name: Commit changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --global user.name 'Positive0611'
-        git config --global user.email 'Positive0611@users.noreply.github.com'
-        git add results.txt
-        git commit -m 'Update results.txt with new timestamp'
-        git push <https://x-access-token:${GITHUB_TOKEN}@github.com/$>{{ github.repository }}.git HEAD:${{ github.ref }}
+      - name: Commit results
+        run: |
+          git config --global user.name 'Positive0611'
+          git config --global user.email 'positive0611@example.com'
+          git add results.txt
+          git commit -m "Update results.txt with new timestamp"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
