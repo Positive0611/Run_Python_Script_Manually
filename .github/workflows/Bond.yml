@@ -28,7 +28,7 @@ jobs:
 
     - name: Commit changes
       env:
-        GITHUB_TOKEN: ${{ secret.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --global user.name 'Positive0611'
         git config --global user.email 'Positive0611@users.noreply.github.com'
