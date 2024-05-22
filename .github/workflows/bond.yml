@@ -26,7 +26,7 @@ jobs:
             file_name.write(f'{output_date}\n')
         "
 
-    - name: Commit changes
+    - name: Commit results
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
